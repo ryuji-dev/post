@@ -57,7 +57,7 @@ export class AuthService {
     )
       domain = 'localhost';
     else {
-      domain = requestDomain;
+      domain = requestDomain.split(':')[0];
     }
 
     return {
