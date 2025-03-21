@@ -31,7 +31,6 @@ artifacts:
 cache:
   paths:
     - 'node_modules/**/*'
-
-env:
-  variables:
-    DATABASE_HOST: 'database-1.c5mcos2y8cv7.ap-northeast-2.rds.amazonaws.com'
+# env:
+#   variables:
+#     DATABASE_HOST: 'database-1.c5mcos2y8cv7.ap-northeast-2.rds.amazonaws.com'
