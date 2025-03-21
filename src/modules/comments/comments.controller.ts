@@ -16,7 +16,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { RequestUser } from 'src/decorators/request-user.decorator';
 import { User } from '../users/entities/user.entity';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { CommentRoleGuard } from './guards/comment-role.guard';
 

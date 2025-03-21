@@ -8,6 +8,8 @@ import { PassportModule } from '@nestjs/passport';
 import { AppConfigModule } from 'src/config/app/config.module';
 import { AppConfigService } from 'src/config/app/config.service';
 import { S3Module } from '../s3/s3.module';
+import { GoogleStrategy } from './strategies/google.strategy';
+import { SocialConfigModule } from 'src/config/social/config.module';
 
 @Module({
   imports: [
@@ -23,8 +25,10 @@ import { S3Module } from '../s3/s3.module';
       inject: [AppConfigService],
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'google' }),
+    SocialConfigModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, GoogleStrategy],
 })
 export class AuthModule {}

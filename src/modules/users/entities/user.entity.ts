@@ -8,6 +8,13 @@ export enum UserRole {
   USER = 'user',
 }
 
+export enum SocialType {
+  GOOGLE = 'google',
+  KAKAO = 'kakao',
+  NAVER = 'naver',
+  COMMON = 'common',
+}
+
 @Entity()
 export class User extends BaseEntity {
   @Column()
@@ -16,8 +23,14 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
+
+  @Column({ nullable: true, default: SocialType.COMMON })
+  socialId: string;
+
+  @Column({ type: 'enum', enum: SocialType, default: SocialType.COMMON })
+  socialType: SocialType;
 
   @Column({ enum: UserRole, default: UserRole.USER })
   role: UserRole;

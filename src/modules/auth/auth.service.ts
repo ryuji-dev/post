@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
 import { UsersService } from '../users/users.service';
-import { comparePassword, encryptPassword } from '../../utils/password-util';
+import { comparePassword } from '../../utils/password-util';
 import { ResponseRegisterDto } from './dto/response-register.dto';
 import { LogInDto } from './dto/log-in.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -18,7 +18,6 @@ export class AuthService {
     private s3Service: S3Service,
   ) {}
   async register(registerDto: RegisterDto): Promise<ResponseRegisterDto> {
-    registerDto.password = await encryptPassword(registerDto.password);
     return this.usersService.createUser(registerDto);
   }
 
@@ -45,6 +44,35 @@ export class AuthService {
       refreshToken,
       accessOptions,
       refreshOptions,
+    };
+  }
+
+  async googleLogin(email: string, origin: string) {
+    const user = await this.usersService.findUserByEmail(email);
+    const { accessToken, accessOptions } = this.setJwtAccessToken(
+      email,
+      origin,
+    );
+    const { refreshToken, refreshOptions } = this.setJwtRefreshToken(
+      email,
+      origin,
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+      accessOptions,
+      refreshOptions,
+    };
+  }
+
+  googleLoginCallback(req: Request) {
+    if (!req) {
+      throw new UnauthorizedException('구글 로그인 실패');
+    }
+    return {
+      message: '구글 로그인 성공',
+      user: req,
     };
   }
 

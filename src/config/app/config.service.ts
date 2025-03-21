@@ -16,4 +16,16 @@ export class AppConfigService {
   get port() {
     return this.configService.get<number>('app.port');
   }
+
+  get googleClientId() {
+    return this.configService.get<string>('app.googleClientId');
+  }
+
+  get googleClientSecret() {
+    return this.configService.get<string>('app.googleClientSecret');
+  }
+
+  get googleCallbackURL() {
+    return this.configService.get<string>('app.googleCallbackURL');
+  }
 }
