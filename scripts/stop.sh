@@ -1,5 +1,5 @@
 # stop.sh
-#
+
 #!/bin/bash
 APP_NAME="nestjs-app"
 
