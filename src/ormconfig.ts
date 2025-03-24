@@ -24,7 +24,10 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   subscribers: [PostViewSubscriber, CommentSubscriber, UserSubscriber],
-  // ssl: {
-  //   rejectUnauthorized: false,
-  // },
+  ssl:
+    dbConfigService.nodeEnv === 'local'
+      ? false
+      : {
+          rejectUnauthorized: false,
+        },
 });
